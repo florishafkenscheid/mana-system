@@ -3,116 +3,128 @@
 #include <cmath>
 
 using namespace std;
-    class Weapon {
-        public:
-            int Damage;
-            int Strength;
-            int critChance;
-            int critDamage;
-            int Intelligence;
-            int Ferocity;
-            int Rarity; // 1 = Common, 2 = Uncommon, 3 = Rare, 4 = Epic, 5 = Legendary, 6 = Mythic, 7 = Divine, 8 = Special, 9 = Very Special 
-            bool Dungeon;
-            Weapon(int a, int b, int c, int d, int e, int f, int g, bool h) {
-                Damage = a;
-                Strength = b;
-                critChance = c;
-                critDamage = d;
-                Intelligence = e;
-                Ferocity = f;
-                Rarity = g;
-                Dungeon = h;
-            }
-    };
+class Weapon
+{
+public:
+    int Damage;
+    int Strength;
+    int critChance;
+    int critDamage;
+    int Intelligence;
+    int Ferocity;
+    int Rarity; // 1 = Common, 2 = Uncommon, 3 = Rare, 4 = Epic, 5 = Legendary, 6 = Mythic, 7 = Divine, 8 = Special, 9 = Very Special
+    bool Dungeon;
+    Weapon(int a, int b, int c, int d, int e, int f, int g, bool h)
+    {
+        Damage = a;
+        Strength = b;
+        critChance = c;
+        critDamage = d;
+        Intelligence = e;
+        Ferocity = f;
+        Rarity = g;
+        Dungeon = h;
+    }
+};
 
-    class Armor {
-        public:
-            int Strength;
-            int critChance;
-            int critDamage;
-            int Health;
-            int Defense;
-            int Speed;
-            int Intelligence;
-            int healthRegen;
-    };
+class Armor
+{
+public:
+    int Strength;
+    int critChance;
+    int critDamage;
+    int Health;
+    int Defense;
+    int Speed;
+    int Intelligence;
+    int healthRegen;
+};
 
-    class Helmet: public Armor {
-        public:
-            double abilityDamage;
-            Helmet(int a, int b, int c, int d, int e, int f, int g, int h, int i) {
-                Strength = a;
-                critChance = b;
-                critDamage = c;
-                Health = d;
-                Defense = e;
-                Speed = f;
-                Intelligence = g;
-                healthRegen = h;
-                abilityDamage = i;
-            };
-    };
+class Helmet : public Armor
+{
+public:
+    double abilityDamage;
+    Helmet(int a, int b, int c, int d, int e, int f, int g, int h, int i)
+    {
+        Strength = a;
+        critChance = b;
+        critDamage = c;
+        Health = d;
+        Defense = e;
+        Speed = f;
+        Intelligence = g;
+        healthRegen = h;
+        abilityDamage = i;
+    }
+};
 
-    class Chestplate: public Armor {
-        public:
-            int trueDefense;
-            Chestplate(int a, int b, int c, int d, int e, int f, int g, int h, int i) {
-                Strength = a;
-                critChance = b;
-                critDamage = c;
-                Health = d;
-                Defense = e;
-                Speed = f;
-                Intelligence = g;
-                healthRegen = h;
-                trueDefense = i;
-            };
-    };
+class Chestplate : public Armor
+{
+public:
+    int trueDefense;
+    Chestplate(int a, int b, int c, int d, int e, int f, int g, int h, int i)
+    {
+        Strength = a;
+        critChance = b;
+        critDamage = c;
+        Health = d;
+        Defense = e;
+        Speed = f;
+        Intelligence = g;
+        healthRegen = h;
+        trueDefense = i;
+    }
+};
 
-    class Leggings: public Armor {
-        public:
-            Leggings(int a, int b, int c, int d, int e, int f, int g, int h) {
-                Strength = a;
-                critChance = b;
-                critDamage = c;
-                Health = d;
-                Defense = e;
-                Speed = f;
-                Intelligence = g;
-                healthRegen = h;
-            };
-    };
-    class Boots: public Armor {
-        public:
-            Boots(int a, int b, int c, int d, int e, int f, int g, int h) {
-                Strength = a;
-                critChance = b;
-                critDamage = c;
-                Health = d;
-                Defense = e;
-                Speed = f;
-                Intelligence = g;
-                healthRegen = h;
-            };
-    };
-    class Player {
-        public:
-            int magicalPower;
-            string Helmet;
-            string Chestplate;
-            string Leggings;
-            string Boots;
-            string Weapon;
-            Player(int a, string b, string c, string d, string e, string f) {
-                magicalPower = a;
-                Helmet = b;
-                Chestplate = c;
-                Leggings = d;
-                Boots = e;
-                Weapon = f;
-            }
-
-    };
+class Leggings : public Armor
+{
+public:
+    Leggings(int a, int b, int c, int d, int e, int f, int g, int h)
+    {
+        Strength = a;
+        critChance = b;
+        critDamage = c;
+        Health = d;
+        Defense = e;
+        Speed = f;
+        Intelligence = g;
+        healthRegen = h;
+    }
+};
+class Boots : public Armor
+{
+public:
+    Boots(int a, int b, int c, int d, int e, int f, int g, int h)
+    {
+        Strength = a;
+        critChance = b;
+        critDamage = c;
+        Health = d;
+        Defense = e;
+        Speed = f;
+        Intelligence = g;
+        healthRegen = h;
+    }
+};
+class Player
+{
+public:
+    int magicalPower;
+    string Helmet;
+    string Chestplate;
+    string Leggings;
+    string Boots;
+    string Weapon;
+    Player(int a, string b, string c, string d, string e, string f)
+    {
+        magicalPower = a;
+        Helmet = b;
+        Chestplate = c;
+        Leggings = d;
+        Boots = e;
+        Weapon = f;
+    }
+};
 
 Helmet shadowGoggles(0, 0, 0, 166, 55, 0, 480, 10, 49.5);
 
@@ -127,35 +139,87 @@ Weapon Hyperion(287, 150, 0, 0, 404, 30, 5, true);
 Player blousy(1347, "shadowGoggles", "stormChestplate", "stormLeggings", "stormBoots", "Hyperion");
 int mpMana = 29.97 * pow((log(0.0019 * (blousy.magicalPower) + 1)), 1.2);
 int armorMana = shadowGoggles.Intelligence + stormChestplate.Intelligence + stormLeggings.Intelligence + stormBoots.Intelligence;
-int maxMana = armorMana + Hyperion.Intelligence + mpMana;
-int currentMana = maxMana;
+double maxMana = armorMana + Hyperion.Intelligence + mpMana;
+double currentMana = maxMana;
 
-void witherImpact(){
+void witherImpact()
+{
     currentMana -= 120;
+}
+
+void progressBar()
+{
+    int percentageMana = currentMana / maxMana * 100;
+    std::cout << percentageMana << std::endl;
+    if (percentageMana == 0)
+    {
+        std::cout << "[==========]    " << currentMana << "/" << maxMana << std::endl;
+    }
+    else if (0 < percentageMana && percentageMana <= 15)
+    {
+        std::cout << "[#=========]    " << currentMana << "/" << maxMana <<std::endl;
+    }
+    else if (15 < percentageMana && percentageMana <= 25)
+    {
+        std::cout << "[##========]    " << currentMana << "/" << maxMana <<std::endl;
+    }
+    else if (25 < percentageMana && percentageMana <= 35)
+    {
+        std::cout << "[###=======]    " << currentMana << "/" << maxMana <<std::endl;
+    }
+    else if (35 < percentageMana && percentageMana <= 45)
+    {
+        std::cout << "[####======]    " << currentMana << "/" << maxMana <<std::endl;
+    }
+    else if (45 < percentageMana && percentageMana <= 55)
+    {
+        std::cout << "[#####=====]    " << currentMana << "/" << maxMana <<std::endl;
+    }
+    else if (55 < percentageMana && percentageMana <= 65)
+    {
+        std::cout << "[######====]    " << currentMana << "/" << maxMana <<std::endl;
+    }
+    else if (65 < percentageMana && percentageMana <= 75)
+    {
+        std::cout << "[#######===]    " << currentMana << "/" << maxMana <<std::endl;
+    }
+    else if (75 < percentageMana && percentageMana <= 85)
+    {
+        std::cout << "[########==]    " << currentMana << "/" << maxMana <<std::endl;
+    }
+    else if (85 < percentageMana && percentageMana <= 95)
+    {
+        std::cout << "[#########=]    " << currentMana << "/" << maxMana <<std::endl;
+    }
+    else if (95 < percentageMana && percentageMana <= 100)
+    {
+        std::cout << "[##########]    " << currentMana << "/" << maxMana <<std::endl;
+    }
 }
 
 void manaRegen()
 {
-    if (currentMana == maxMana)
-    {
-        std::cout << "Max mana" << std::endl;
-    }
-
-    else if (currentMana != maxMana)
+    if (currentMana != maxMana)
     {
         int manaRegen = maxMana / 100 * 10;
+        progressBar();
         Sleep(1500);
         while (currentMana < maxMana)
         {
-            std::cout << currentMana << std::endl;
             currentMana += manaRegen;
+            if (currentMana > maxMana)
+            {
+                currentMana = maxMana;
+            }
+            progressBar();
             Sleep(1500);
         }
     }
 }
 
-int main() {
-    std::cout << maxMana << endl;
+
+int main()
+{
     witherImpact();
     witherImpact();
     witherImpact();
@@ -165,9 +229,5 @@ int main() {
     while (currentMana < maxMana)
     {
         manaRegen();
-        if (currentMana > maxMana)
-        {
-            currentMana = maxMana;
-        }
     }
 }
