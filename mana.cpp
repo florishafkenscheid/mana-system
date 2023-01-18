@@ -187,11 +187,11 @@ void progressBar()
     {
         std::cout << "[########==]    " << currentMana << "/" << maxMana <<std::endl;
     }
-    else if (85 < percentageMana && percentageMana <= 95)
+    else if (85 < percentageMana && percentageMana <= 99)
     {
         std::cout << "[#########=]    " << currentMana << "/" << maxMana <<std::endl;
     }
-    else if (95 < percentageMana && percentageMana <= 100)
+    else if (percentageMana == 100)
     {
         std::cout << "[##########]    " << currentMana << "/" << maxMana <<std::endl;
     }
@@ -220,6 +220,11 @@ void manaRegen()
 
 int main()
 {
+    witherImpact();
+    witherImpact();
+    witherImpact();
+    witherImpact();
+    witherImpact();
     witherImpact();
     witherImpact();
     witherImpact();
