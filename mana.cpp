@@ -1,6 +1,7 @@
 #include <iostream>
 #include <windows.h>
 #include <cmath>
+#include <string>
 
 using namespace std;
 class Weapon
@@ -44,7 +45,7 @@ class Helmet : public Armor
 {
 public:
     double abilityDamage;
-    Helmet(int a, int b, int c, int d, int e, int f, int g, int h, int i)
+    Helmet(int a, int b, int c, int d, int e, int f, int g, int h, double i)
     {
         Strength = a;
         critChance = b;
@@ -136,15 +137,118 @@ Boots stormBoots(35, 15, 27, 331, 138, 6, 300, 10);
 
 Weapon Hyperion(287, 150, 0, 0, 404, 30, 5, true);
 
-Player blousy(1347, "shadowGoggles", "stormChestplate", "stormLeggings", "stormBoots", "Hyperion");
-int mpMana = 29.97 * pow((log(0.0019 * (blousy.magicalPower) + 1)), 1.2);
-int armorMana = shadowGoggles.Intelligence + stormChestplate.Intelligence + stormLeggings.Intelligence + stormBoots.Intelligence;
-double maxMana = armorMana + Hyperion.Intelligence + mpMana;
-double currentMana = maxMana;
+// Player blousy(1500, "shadowGoggles", "stormChestplate", "stormLeggings", "stormBoots", "Hyperion");
+
+void createPlayer() {
+    string name;
+    std::cout << "Enter your name: ";
+    std::cin >> name;
+    std::cout << "Hello " << name << "!" << std::endl;
+}
+
+void chooseGear() {
+    // show [1] [2] [3] [4] system to show equipped pieces
+    int choice;
+    std::cout << "Which piece of equipment would you like to modify?" << std::endl;
+    int i = 0;
+    int Helmet;
+    int Chestplate;
+    int Leggings;
+    int Boots;
+    int Weapon;
+    while (i < 5) {
+        std::cout << "[1] Helmet\n[2] Chestplate\n[3] Leggings\n[4] Boots\n[5] Weapon" << std::endl;
+        // choose what piece to modify
+        std::cin >> choice;
+        if (choice == 1) {
+            int helmetChoice;
+            std::cout << "[1] Wither Goggles" << std::endl;
+            std::cin >> helmetChoice;
+            if (helmetChoice > 1) {
+                std::cout << "This is not a valid choice" << std::endl;
+            }
+            else if (helmetChoice == 1) {
+                Helmet++;
+                i++;
+            }
+        }
+        else if (choice == 2) {
+            int chestplateChoice;
+            std::cout << "[1] Storm Chestplate" << std::endl;
+            std::cin >> chestplateChoice;
+            if (chestplateChoice > 1) {
+                std::cout << "This is not a valid choice" << std::endl;
+            }
+            else if (chestplateChoice == 1) {
+                Chestplate += 2;
+                i++;
+            }
+        }
+        else if (choice == 3) {
+            int leggingsChoice;
+            std::cout << "[1] Storm Helmet" << std::endl;
+            std::cin >> leggingsChoice;
+            if (leggingsChoice > 1) {
+                std::cout << "This is not a valid choice" << std::endl;
+            }
+            else if (leggingsChoice == 1) {
+                Leggings += 4;
+                i++;
+            }
+        }
+        else if (choice == 4) {
+            int bootsChoice;
+            std::cout << "[1] Storm Boots" << std::endl;
+            std::cin >> bootsChoice;
+            if (bootsChoice > 1) {
+                std::cout << "This is not a valid choice" << std::endl;
+            }
+            else if (bootsChoice == 1) {
+                Boots += 8;
+                i++;
+            }
+        }
+        else if (choice == 5) {
+            int weaponChoice;
+            std::cout << "[1] Hyperion" << std::endl;
+            std::cin >> weaponChoice;
+            if (weaponChoice > 1) {
+                std::cout << "This is not a valid choice" << std::endl;
+            }
+            else if (weaponChoice == 1) {
+                Weapon += 16;
+                i++;
+            }
+        }
+        else if (choice > 5) {
+            std::cout << "This is not a valid choice" << std::endl;
+        }
+    }
+    // see what armor they chose
+    // add up all mana and hp stats
+    // calculate mana and hp after user confirms
+    int totalChoice = Helmet + Chestplate + Leggings + Boots + Weapon;
+    if (totalChoice == 31) {
+        int totalIntelligence = shadowGoggles.Intelligence + stormChestplate.Intelligence + stormLeggings.Intelligence + stormBoots.Intelligence + Hyperion.Intelligence; 
+        int totalHealth = shadowGoggles.Health + stormChestplate.Health + stormLeggings.Health + stormBoots.Health;
+        int totalDefense = shadowGoggles.Defense + stormChestplate.Defense + stormLeggings.Defense + stormBoots.Defense;
+    }
+}
+
+void calcMana() { 
+    int mpMana = 29.97 * pow((log(0.0019 * (1500) + 1)), 1.2);
+    int totalIntelligence = mpMana + 28 + 106 + 86;
+    double maxMana = totalIntelligence;
+    double& currentMana = maxMana;
+}
 
 void witherImpact()
 {
     currentMana -= 120;
+    if (currentMana <= 0) {
+        currentMana = 0;
+        std::cout << "No mana" << std::endl;
+    }
 }
 
 void progressBar()
@@ -201,12 +305,12 @@ void manaRegen()
 {
     if (currentMana != maxMana)
     {
-        int manaRegen = maxMana / 100 * 10;
+        int manaRegen = maxMana * 0.02;
         progressBar();
         Sleep(1500);
         while (currentMana < maxMana)
         {
-            currentMana += manaRegen;
+            currentMana += manaRegen + 8;
             if (currentMana > maxMana)
             {
                 currentMana = maxMana;
@@ -220,10 +324,8 @@ void manaRegen()
 
 int main()
 {
-    witherImpact();
-    witherImpact();
-    witherImpact();
-    witherImpact();
+    createPlayer();
+    chooseGear();
     witherImpact();
     witherImpact();
     witherImpact();
