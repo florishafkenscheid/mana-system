@@ -136,7 +136,57 @@ Boots stormBoots(35, 15, 27, 331, 138, 6, 300, 10);
 
 Weapon Hyperion(287, 150, 0, 0, 404, 30, 5, true);
 
-Player blousy(1347, "shadowGoggles", "stormChestplate", "stormLeggings", "stormBoots", "Hyperion");
+Player blousy(1500, "shadowGoggles", "stormChestplate", "stormLeggings", "stormBoots", "Hyperion");
+
+void createPlayer() {
+    string name;
+    std::cout << "Enter your name: ";
+    std::cin >> name;
+}
+
+void chooseGear() {
+    // show [1] [2] [3] [4] system to show equipped pieces
+    int choice;
+    std::cout << "Which piece of equipment would you like to modify?" << std::endl;
+    std::cout << "[1] Helmet\n[2] Chestplate\n[3] Leggings\n[4] Boots\n[5] Weapon" << std::endl;
+    // choose what piece to modify
+    std::cin >> choice; 
+    if (choice == 1) {
+        int helmetChoice;
+        std::cout << "[1] Wither Goggles" << std::endl;
+        std::cin >> helmetChoice;
+    }
+    else if (choice == 2) {
+        int chestplateChoice;
+        std::cout << "[1] Storm Chestplate" << std::endl;
+        std::cin >> chestplateChoice;
+    }
+    else if (choice == 3) {
+        int leggingsChoice;
+        std::cout << "[1] Storm Helmet" << std::endl;
+        std::cin >> leggingsChoice;
+    }
+    else if (choice == 4) {
+        int bootsChoice;
+        std::cout << "[1] Storm Boots" << std::endl;
+        std::cin >> bootsChoice;
+    }
+    else if (choice == 5) {
+        int weaponChoice;
+        std::cout << "[1] Hyperion" << std::endl;
+        std::cin >> weaponChoice;
+        if (weaponChoice == 1) {
+            
+        }
+    }
+    else if (choice > 5) {
+        std::cout << "This is not a valid choice" << std::endl;
+    }
+    // show all pieces of that sort
+    // add up all mana and hp stats
+    // calculate mana and hp after user confirms
+}
+
 int mpMana = 29.97 * pow((log(0.0019 * (blousy.magicalPower) + 1)), 1.2);
 int armorMana = shadowGoggles.Intelligence + stormChestplate.Intelligence + stormLeggings.Intelligence + stormBoots.Intelligence;
 double maxMana = armorMana + Hyperion.Intelligence + mpMana;
@@ -216,7 +266,7 @@ void manaRegen()
                 currentMana = maxMana;
             }
             progressBar();
-            usleep(100000);
+            usleep(1000000);
         }
     }
 }
@@ -224,23 +274,7 @@ void manaRegen()
 
 int main()
 {
-    witherImpact();
-    witherImpact();
-    witherImpact();
-    witherImpact();
-    witherImpact();
-    witherImpact();
-    witherImpact();
-    witherImpact();
-    witherImpact();
-    witherImpact();
-    witherImpact();
-    witherImpact();
-    witherImpact();
-    witherImpact();
-    witherImpact();
-    witherImpact();
-    witherImpact();
+    createPlayer();
     while (currentMana < maxMana)
     {
         manaRegen();
