@@ -1,5 +1,5 @@
 #include <iostream>
-#include <windows.h>
+#include <unistd.h>
 #include <cmath>
 
 using namespace std;
@@ -44,7 +44,7 @@ class Helmet : public Armor
 {
 public:
     double abilityDamage;
-    Helmet(int a, int b, int c, int d, int e, int f, int g, int h, int i)
+    Helmet(int a, int b, int c, int d, int e, int f, int g, int h, double i)
     {
         Strength = a;
         critChance = b;
@@ -145,6 +145,10 @@ double currentMana = maxMana;
 void witherImpact()
 {
     currentMana -= 120;
+    if (currentMana <= 0) {
+        currentMana = 0;
+        std::cout << "No mana" << std::endl;
+    }
 }
 
 void progressBar()
@@ -201,18 +205,18 @@ void manaRegen()
 {
     if (currentMana != maxMana)
     {
-        int manaRegen = maxMana / 100 * 10;
+        int manaRegen = maxMana * 0.02;
         progressBar();
-        Sleep(1500);
+        usleep(1000000);
         while (currentMana < maxMana)
         {
-            currentMana += manaRegen;
+            currentMana += manaRegen + 8;
             if (currentMana > maxMana)
             {
                 currentMana = maxMana;
             }
             progressBar();
-            Sleep(1500);
+            usleep(1000000);
         }
     }
 }
@@ -220,6 +224,12 @@ void manaRegen()
 
 int main()
 {
+    witherImpact();
+    witherImpact();
+    witherImpact();
+    witherImpact();
+    witherImpact();
+    witherImpact();
     witherImpact();
     witherImpact();
     witherImpact();
