@@ -216,7 +216,7 @@ void manaRegen()
                 currentMana = maxMana;
             }
             progressBar();
-            usleep(1000000);
+            usleep(100000);
         }
     }
 }
