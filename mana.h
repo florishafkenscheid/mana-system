@@ -6,6 +6,8 @@
 #include <curses.h>
 #include "armor.h"
 #include "Player.h"
+#include "statdisplay.h"
+#include "health.h"
 
 struct ManaValues {
     double maxMana;
@@ -19,44 +21,5 @@ ManaValues Mana(const Player& player) {
     double currentMana = maxMana;
     return { maxMana, currentMana };
 };
-
-void progressBar(double currentMana, double maxMana)
-{
-    int percentageMana = currentMana / maxMana * 100;
-
-    int numFilledBlocks = percentageMana / 10;
-    int numEmptyBlocks = 10 - numFilledBlocks;
-
-    std::cout << "[";
-    for (int i = 0; i < numFilledBlocks; i++) {
-        std::cout << "#";
-    }
-    for (int i = 0; i < numEmptyBlocks; i++) {
-        std::cout << "=";
-    }
-    std::cout << "]    " << currentMana << "/" << maxMana << "\r";
-    std::cout.flush();
-}
-
-void manaRegen(double& currentMana, double maxMana) {
-    if (currentMana != maxMana)
-    {
-        int manaRegen = maxMana * 0.02;
-        usleep(1000000);
-        printf("\033[2J");
-        progressBar(currentMana, maxMana);
-        while (currentMana < maxMana)
-        {
-            currentMana += manaRegen + 8;
-            if (currentMana > maxMana)
-            {
-                currentMana = maxMana;
-            }
-            usleep(1000000);
-            
-            progressBar(currentMana, maxMana);
-        }
-    }
-}
 
 #endif

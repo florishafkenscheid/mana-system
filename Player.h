@@ -1,30 +1,23 @@
 #ifndef PLAYER_H
 #define PLAYER_H
+#include <iostream>
 
 class Player {
-public: // Non-methods
-    float x,y;
+public:
+    float x, y;
     int health;
     int defense;
     int intelligence;
     int speed;
 
-    int helmetIntelligence;
-    int chestplateIntelligence;
-    int leggingsIntelligence;
-    int bootsIntelligence;
+    Armor armor[4]; // array to store armor pieces
 
-    Player() {
-        x = 0.0f;
-        y = 0.0f;
-        health = 100;
-        defense = 0;
-        intelligence = 100;
-        speed = 100;
-        helmetIntelligence = 0;
-        chestplateIntelligence = 0;
-        leggingsIntelligence = 0;
-        bootsIntelligence = 0;
+    Player() : x(0.0f), y(0.0f), health(100), defense(0), intelligence(100), speed(100) {
+        // initialize armor array with armor instances
+        armor[0] = witherGoggles;
+        armor[1] = stormChestplate;
+        armor[2] = stormLeggings;
+        armor[3] = stormBoots;
     }
 
 public: // Methods
@@ -33,8 +26,14 @@ public: // Methods
         x += xa * speed;
         y += ya * speed;
     }
+    
     void ApplyArmorStats() {
-        intelligence += helmetIntelligence + chestplateIntelligence + leggingsIntelligence + bootsIntelligence;
+        // loop through armor array and add up stats
+        for (int i = 0; i < 4; i++) {
+            intelligence += armor[i].intelligence;
+            health += armor[i].health;
+            defense += armor[i].defense;
+        }
     }
 };
 
