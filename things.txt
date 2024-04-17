@@ -1,0 +1,6 @@
+Player blousy 80 70 NULL NULL NULL NULL NULL
+Player Nyamn 10 0 NULL NULL NULL NULL NULL
+Material Diamond
+Armor Diamond_Helmet Diamond 20 0 20
+Armor Diamond_Chestplate Diamond 30 1 30
+Armor Diamond_Leggings Diamond 20 2 20
