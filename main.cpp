@@ -3,8 +3,9 @@
 #include "itemmanager.h"
 #include "utils.h"
 #include "material.h"
-#include "regenthread.h"
+#include "regen.h"
 #include "display.h"
+#include "input.h"
 #include "filemanager.h"
 
 Armor getItem(std::string& name, std::vector<Armor> armorList) {
@@ -212,13 +213,6 @@ void displayHealth(std::vector<Player>& playerList, std::vector<Material> materi
         system("read");
         return;
     }
-    std::thread displayThread([&]() {
-        display_obj displayObj(playerList);
-        while (true) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(1));
-            displayObj();
-        }
-    });
     std::thread regenThread([&]() {
         regen_obj regenObj(playerList);
         while (true) {
@@ -226,8 +220,30 @@ void displayHealth(std::vector<Player>& playerList, std::vector<Material> materi
             regenObj();
         }
     });
+    std::thread displayThread([&]() {
+        display_obj displayObj(playerList);
+        while (true) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            displayObj();
+        }
+    });
+    // std::thread inputThread([&]() {
+    //     input_obj inputObj(playerList);
+    //     while (true) {
+    //         inputObj();
+    //     }
+    // });
     regenThread.detach();
     displayThread.detach();
+    // inputThread.detach();
+}
+
+void setHpLow(std::vector<Player>& playerList) {
+    for (Player player : playerList) {
+        player.setCurrentHealth(1);
+        std::cout << player.getName() << "\'s HP has been set to 1.\n";
+    }
+    system("read");
 }
 
 void saveToFile(std::vector<Player>& playerList, std::vector<Armor>& armorList, std::vector<Material>& materialList) {
@@ -256,7 +272,8 @@ void displayGui(std::vector<Player>& playerList, std::vector<Armor>& armorList, 
         std::cout << "[5] Create material\n";
         std::cout << "[6] Add armor to player\n";
         std::cout << "[7] Show armor of a player\n";
-        std::cout << "[8] Start\n";
+        std::cout << "[8] Set HP low\n";
+        std::cout << "[9] Start\n";
 
         std::cin >> choice;
         if (std::cin.fail()) {
@@ -295,6 +312,10 @@ void displayGui(std::vector<Player>& playerList, std::vector<Armor>& armorList, 
             continue;
 
         case 8:
+            setHpLow(playerList);
+            continue;
+
+        case 9:
             displayHealth(playerList, materialList, armorList);
             continue;
         }

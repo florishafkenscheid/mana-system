@@ -24,7 +24,20 @@ public:
   }
 
   int getMaxHealth() {
+    // int health = maxHealth;
+    // for (int i = 0; i < armor.size(); i++) {
+    //   health += armor[i].getHealth();
+    // }
+    // return health;
     return maxHealth;
+  }
+
+  int getRegenAmount() {
+    int curHealth = maxHealth;
+    for (Armor piece : armor) {
+      curHealth += piece.getHealth();
+    }
+    return curHealth;
   }
 
   int getDefense() {
