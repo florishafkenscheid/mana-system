@@ -6,9 +6,9 @@
 
 class Player {
 public:
-  Player() : name(), maxHealth(10), currentHealth(10), defense(0), armor(), weapon() {}
-  Player(const std::string& name, int health, int defense, const std::array<Armor, 4>& armor, const std::string& weapon)
-    : name(name), maxHealth(health), currentHealth(health), defense(defense), armor(armor), weapon(weapon) {}
+  Player() : name(), maxHealth(10), currentHealth(10), defense(0), armor() {}
+  Player(const std::string& name, int health, int defense, const std::array<Armor, 4>& armor)
+    : name(name), maxHealth(health), currentHealth(health), defense(defense), armor(armor) {}
 
   // Getters
   int getEffectiveHP() {
@@ -24,20 +24,15 @@ public:
   }
 
   int getMaxHealth() {
-    // int health = maxHealth;
-    // for (int i = 0; i < armor.size(); i++) {
-    //   health += armor[i].getHealth();
-    // }
-    // return health;
     return maxHealth;
   }
 
   int getRegenAmount() {
-    int curHealth = maxHealth;
-    for (Armor piece : armor) {
-      curHealth += piece.getHealth();
+    int regenAmount = 10;
+    for (Armor& piece : armor) {
+      regenAmount += piece.getHealth();
     }
-    return curHealth;
+    return 1.5+regenAmount*0.025;
   }
 
   int getDefense() {
@@ -52,9 +47,9 @@ public:
     return armor;
   }
 
-  std::string getWeapon() const {
-    return weapon;
-  }
+  // std::string getWeapon() const {
+  //   return weapon;
+  // }
 
   // Setters
   void setName(const std::string& newName) {
@@ -84,30 +79,28 @@ public:
     }
   }
 
-  void setWeapon(const std::string& newWeapon) {
-    weapon = newWeapon;
-  }
+  // void setWeapon(const std::string& newWeapon) {
+  //   weapon = newWeapon;
+  // }
 
   std::string serialize() {
     std::ostringstream oss;
     oss << getName() << ' ' << getMaxHealth() << ' ' << getDefense() << ' ';
     
     // Serialize each Armor object in the armor array
-    for (Armor& a : getArmor()) {
-      if (a.isInitialized()) {
-        oss << a.serialize() << ' ';
-      } else {
-        oss << "NULL ";
-      }
+    for (Armor& piece : getArmor()) {
+        oss << piece.serialize() << ' ';
     }
 
     // Serialize the weapon
-    oss << getWeapon();
+    // oss << getWeapon();
 
     return oss.str();
   }
 
   Player deserialize(std::istringstream& iss) {
+    // Player blousy 40 30 NULL Diamond_Chestplate Diamond 30 1 30 NULL NULL NULL
+    //    0     1    2  3   4          5              6    7  8 9   10   11   12
       std::string line;
       std::getline(iss, line);
 
@@ -129,20 +122,20 @@ public:
 
       std::array<Armor, 4> armor;
       for (int i = 0; i < 4; ++i) {
-        if (tokens.size() <= 4 + i + 1 || tokens[4 + i + 1] == "NULL") {
+        if (tokens.size() <= 4 + i || tokens[4 + i] == "NULL") {
           Armor a;
           armor[i] = a;
         } else {
-          std::istringstream armorStream(tokens[4 + i + 1]);
+          std::istringstream armorStream(tokens[4 + i]);
           Armor a;
           a.deserialize(armorStream);
           armor[i] = a;
         }
       }
 
-      std::string weapon = tokens[tokens.size() - 1];
+      // std::string weapon = tokens[12];
 
-      Player player(name, maxHealth, defense, armor, weapon);
+      Player player(name, maxHealth, defense, armor);
       player.setCurrentHealth(maxHealth);
 
       return player;
@@ -154,7 +147,7 @@ private:
   int maxHealth;
   int defense;
   std::array<Armor, 4> armor;
-  std::string weapon;
+  // std::string weapon;
 };
 
 #endif // PLAYER_H

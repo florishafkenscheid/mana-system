@@ -7,6 +7,7 @@
 #include "display.h"
 #include "input.h"
 #include "filemanager.h"
+#define FILE "things.txt"
 
 Armor getItem(std::string& name, std::vector<Armor> armorList) {
     for (Armor& armor : armorList) {
@@ -65,24 +66,24 @@ void addArmorToPlayer(std::vector<Player>& playerList, std::vector<Armor>& armor
     playerName = trim_copy(playerName);
 
     std::cout << "\nWhat do you want to add?\n";
-    std::string itemName;
-    std::getline(std::cin, itemName);
-    itemName = trim_copy(itemName);
+    std::string inputtedItemName;
+    std::getline(std::cin, inputtedItemName);
+    inputtedItemName = trim_copy(inputtedItemName);
 
     for (Player& player : playerList) {
         if (player.getName() == playerName) {
-            for (Armor& armor : armorList) {
-                std::string armorName = trim_copy(armor.getName());
-                if (armorName == itemName) {
-                    std::array<Armor, 4> newArmor = player.getArmor();
-                    int slot = armor.getSlot();
-                    newArmor[slot] = armor;
-                    player.setArmor(newArmor);
-                    std::cout << "\nArmor added to player.\n\n";
-                    system("read");
-                    return;
+            std::array<Armor, 4> newArmor;
+            for (Armor& piece : armorList) {
+                std::string pieceName = trim_copy(piece.getName());
+                if (pieceName == inputtedItemName) {
+                    int slot = piece.getSlot();
+                    newArmor[slot] = piece;
                 }
             }
+            player.setArmor(newArmor);
+            std::cout << "\nArmor added to player.\n\n";
+            system("read");
+            return;
         }
     }
 }
@@ -95,7 +96,7 @@ void displayArmorForPlayer(std::vector<Player>& playerList, std::vector<Armor>& 
     }
     std::string playerName;
 
-    std::cout << "Who's armor do you want to view?\n";
+    std::cout << "Whose armor do you want to view?\n";
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::getline(std::cin, playerName);
     playerName = trim_copy(playerName);
@@ -130,7 +131,7 @@ void createNewPlayer(std::vector<Player>& playerList) {
     }
 
     FileManager fm;
-    Player newPlayer(username, 10, 0, std::array<Armor, 4>{}, "");
+    Player newPlayer(username, 10, 0, std::array<Armor, 4>{});
     playerList.push_back(newPlayer);
     std::cout << "Successfully created user: " + username + "\n";
     system("read");
@@ -152,9 +153,9 @@ void createNewArmor(std::vector<Armor>& armorList, std::vector<Material>& materi
     name = trim_copy(name);
 
     std::cout << "\nChoose a material for the armor.\n";
-    std::cout << "[1] Leather\n";
-    std::cout << "[2] Iron\n";
-    std::cout << "[3] Diamond\n";
+    std::cout << "> Leather\n";
+    std::cout << "> Iron\n";
+    std::cout << "> Diamond\n";
 
     std::getline(std::cin, materialInput);
     materialInput = toLower(materialInput);
@@ -227,15 +228,15 @@ void displayHealth(std::vector<Player>& playerList, std::vector<Material> materi
             displayObj();
         }
     });
-    // std::thread inputThread([&]() {
-    //     input_obj inputObj(playerList);
-    //     while (true) {
-    //         inputObj();
-    //     }
-    // });
+    std::thread inputThread([&]() {
+        input_obj inputObj(playerList);
+        while (true) {
+            inputObj();
+        }
+    });
     regenThread.detach();
     displayThread.detach();
-    // inputThread.detach();
+    inputThread.detach();
 }
 
 void setHpLow(std::vector<Player>& playerList) {
@@ -263,8 +264,9 @@ void saveToFile(std::vector<Player>& playerList, std::vector<Armor>& armorList, 
 void displayGui(std::vector<Player>& playerList, std::vector<Armor>& armorList, std::vector<Material>& materialList) {
     int choice;
     while (true) {
-        std::cout << "\033[H\033[2J";
         saveToFile(playerList, armorList, materialList);
+
+        std::cout << "\033[H\033[2J";
         std::cout << "[1] Display Armor List\n";
         std::cout << "[2] Display Player List\n";
         std::cout << "[3] Create player\n";

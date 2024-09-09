@@ -16,7 +16,7 @@ public:
                 if (curHP >= maxHP || curHP+regenAmount >= maxHP) {
                     player.setCurrentHealth(maxHP);
                 } else {
-                player.setCurrentHealth(curHP + regenAmount); 
+                    player.setCurrentHealth(curHP + regenAmount); 
                 }
             }
         }

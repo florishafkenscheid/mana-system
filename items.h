@@ -80,24 +80,37 @@ public:
     std::ostringstream oss;
     std::string name = this->getName();
     std::replace(name.begin(), name.end(), ' ', '_');
-    oss << name << ' ' << this->getMaterial().getName() << ' ' << getDefense() << ' ' << getSlot() << ' ' << getHealth();
+    oss << name << ',' << this->getMaterial().getName() << ',' << getDefense() << ',' << getSlot() << ',' << getHealth();
     return oss.str();
   }
 
   Armor deserialize(std::istringstream& iss) {
+    std::string serializedString;
+    std::getline(iss, serializedString, ',');
+
+    if (serializedString == "NULL") {
+        // Handle the case where the serialized string is "NULL"
+        return Armor(); // Assuming Armor has a default constructor
+    }
+
+    std::istringstream serializedIss(serializedString);
     std::string name, materialName;
     int defense, slot, health;
 
-    iss >> name >> materialName >> defense >> slot >> health;
+    std::getline(serializedIss, name, ',');
+    std::getline(serializedIss, materialName, ',');
+    std::string defenseStr, slotStr, healthStr;
+    std::getline(serializedIss, defenseStr, ',');
+    std::getline(serializedIss, slotStr, ',');
+    std::getline(serializedIss, healthStr, ',');
+    defense = std::stoi(defenseStr);
+    slot = std::stoi(slotStr);
+    health = std::stoi(healthStr);
 
     std::replace(name.begin(), name.end(), '_', ' ');
 
     Armor armor(name, Material(materialName), defense, slot, health);
     return armor;
-  }
-
-  bool isInitialized() {
-    return !getName().empty() && !getMaterial().getName().empty() && getDefense() != 0;
   }
 
   

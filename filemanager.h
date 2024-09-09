@@ -24,28 +24,28 @@ public:
         file.close();
     }
 
-    void writeToFileA(std::vector<Armor>& content, std::fstream& file) {
+    void writeToFileA(std::vector<Armor>& armorList, std::fstream& file) {
         file.close();
         file.open("things.txt", std::ios::out | std::ios::app);
-        for (Armor& armor : content) {
+        for (Armor& armor : armorList) {
             file << "Armor " << armor.serialize() << "\n";
         }
         file.close();
     }
 
-    void writeToFileM(std::vector<Material>& content, std::fstream& file) {
+    void writeToFileM(std::vector<Material>& materialList, std::fstream& file) {
         file.close();
         file.open("things.txt", std::ios::out | std::ios::app);
-        for (Material& material : content) {
+        for (Material& material : materialList) {
             file << "Material " << material.serialize() << "\n";
         }
         file.close();
     }
 
-    void writeToFileP(std::vector<Player>& content, std::fstream& file) {
+    void writeToFileP(std::vector<Player>& playerList, std::fstream& file) {
         file.close();
         file.open("things.txt", std::ios::out | std::ios::app);
-        for (Player& player : content) {
+        for (Player& player : playerList) {
             file << "Player " << player.serialize() << "\n";
         }
         file.close();
@@ -64,7 +64,7 @@ public:
             iss >> type;
 
             try {
-                if (type == "Armor") {
+                if (type == "Armor") { 
                     Armor armor;
                     armorList.push_back(armor.deserialize(iss));
                 } else if (type == "Material") {
